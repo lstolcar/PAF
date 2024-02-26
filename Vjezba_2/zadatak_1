@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def sila_i_masa():
+def jednliko_gibanje():
     F=float(input('Unesite iznos sile: '))
     m=float(input('Unesite iznos mase: '))
     a=[]
@@ -25,17 +25,7 @@ def sila_i_masa():
     a3.plot(lista,x)
     a3.set_title('x-t graf')
     
-    #plt.plot(lista, a)
-    #plt.plot(lista, v)
-    #plt.plot(lista, x)
     plt.show()
 
 
-
-
-
-
-
-
-
-sila_i_masa()
+jednliko_gibanje()
