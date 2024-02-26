@@ -1,0 +1,13 @@
+import numpy as np
+import math as mat
+
+def hitac():
+    v0=float(input('Unesite početnu brzinu(m/s): '))
+    kut0=float(input('Unesite kut otklona: '))
+
+
+
+
+
+
+hitac()
