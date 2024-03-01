@@ -44,7 +44,7 @@ def hitac():
         y=vy*t-(g*t**2)/2
         iksevi.append(x)
         ipsiloni.append(y)
-        if 0.1>vy*t-(g*t**2)/2>=0 and t>=1:
+        if 0.1>vy*t-(g*t**2)/2>=0:
             t_nula.append(t)
     
     if t_nula==[]:
@@ -67,7 +67,7 @@ def hitac():
     plt.subplot(3,1,3)
     plt.plot(np.linspace(0,11,10000),ipsiloni,'g')
     if nul_tocka==True:
-        plt.plot(t_nula[0],0,'r',marker='.',markersize=15)
+        plt.plot(t_nula[-1],0,'r',marker='.',markersize=15)
     plt.title('y-t graf')
     plt.xlabel('t')
     plt.ylabel('y')    
