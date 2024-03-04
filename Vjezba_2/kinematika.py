@@ -124,7 +124,7 @@ def hitac_numericki(v0, kut, t, dt=0.01, x0=0, y0=0):
         Vy.append(vy)
         X.append(x)
         Y.append(y)
-    print(X)
+    
     plt.subplot(3,1,1)
     plt.plot(X,Y)
     plt.xlabel('x')
