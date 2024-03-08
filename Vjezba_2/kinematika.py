@@ -2,9 +2,8 @@ import numpy as np
 import math as mat
 import matplotlib.pyplot as plt
 
-def jednoliko_gibanje():
-    F=float(input('Unesite iznos sile: '))
-    m=float(input('Unesite iznos mase: '))
+def jednoliko_gibanje(F,m):
+   
     a=[]
     v=[]
     x=[]
@@ -21,11 +20,17 @@ def jednoliko_gibanje():
         
     a1.plot(lista,a,'r')
     a1.set_title('a-t graf')
+    a1.set_xlabel('t[s]')
+    a1.set_ylabel('a[m/$s^2$]')
     a2.plot(lista,v,'g')
     a2.set_title('v-t graf')
+    a2.set_xlabel('t[s]')
+    a2.set_ylabel('v[m/s]')
     a3.plot(lista,x)
     a3.set_title('x-t graf')
-    
+    a3.set_xlabel('t[s]')
+    a3.set_ylabel('x[t]')
+    plt.tight_layout()
     plt.show()
 def jednoliko_gibanje_numericki(F,m):
     a=[]
@@ -45,16 +50,21 @@ def jednoliko_gibanje_numericki(F,m):
         
     a1.plot(t,a,'r')
     a1.set_title('a-t graf')
+    a1.set_xlabel('t[s]')
+    a1.set_ylabel('a[m/$s^2$]')
     a2.plot(t,v,'g')
     a2.set_title('v-t graf')
+    a2.set_xlabel('t[s]')
+    a2.set_ylabel('v[m/s]')
     a3.plot(t,x)
     a3.set_title('x-t graf')
-
+    a3.set_xlabel('t[s]')
+    a3.set_ylabel('x[t]')
+    plt.tight_layout()
     plt.show()
 
-def hitac():
-    v0=float(input('Unesite pocetnu brzinu(m/s): '))
-    kut=float(input('Unesite kut otklona: '))
+def hitac(v0,kut):
+    
     rad=kut*(np.pi/180)
     vx=v0*np.cos(rad)
     vy=v0*np.sin(rad)
@@ -79,23 +89,24 @@ def hitac():
     plt.subplot(3,1,1)
     plt.plot(iksevi,ipsiloni)
     plt.title('x-y graf')
-    plt.xlabel('x')
-    plt.ylabel('y')
+    plt.xlabel('x[m]')
+    plt.ylabel('y[m]')
 
     plt.subplot(3,1,2)
     plt.plot(np.linspace(0,11,10000),iksevi,'r')
     plt.title('x-t graf')
-    plt.xlabel('t')
-    plt.ylabel('x')
+    plt.xlabel('t[s]')
+    plt.ylabel('x[m]')
 
     plt.subplot(3,1,3)
     plt.plot(np.linspace(0,11,10000),ipsiloni,'g')
     if nul_tocka==True:
         plt.plot(t_nula[-1],0,'r',marker='.',markersize=15)
     plt.title('y-t graf')
-    plt.xlabel('t')
-    plt.ylabel('y')    
+    plt.xlabel('t[s]')
+    plt.ylabel('y[m]')    
     
+    plt.tight_layout()
     plt.show()
     print(t_nula[0])
 
@@ -115,7 +126,7 @@ def hitac_numericki(v0, kut, t, dt=0.01, x0=0, y0=0):
     Vy.append(vy0)
     X.append(x0)
     Y.append(y0)
-    for t in np.arange(0,t+1,dt):
+    for t in np.arange(0,t,dt):
         vx=Vx[-1]+ax*dt
         vy=Vy[-1]+ay*dt
         x=X[-1]+vx*dt
@@ -124,24 +135,26 @@ def hitac_numericki(v0, kut, t, dt=0.01, x0=0, y0=0):
         Vy.append(vy)
         X.append(x)
         Y.append(y)
+        
     
     plt.subplot(3,1,1)
     plt.plot(X,Y)
-    plt.xlabel('x')
-    plt.ylabel('y')
+    plt.xlabel('x[m]')
+    plt.ylabel('y[m]')
 
     plt.subplot(3,1,2)
-    plt.plot(np.linspace(0,t+1,len(X)),X,'r')
+    plt.plot(np.linspace(0,t,len(X)),X,'r')
     plt.title('x-t graf')
-    plt.xlabel('t')
-    plt.ylabel('x')
+    plt.xlabel('t[s]')
+    plt.ylabel('x[m]')
 
     plt.subplot(3,1,3)
-    plt.plot(np.linspace(0,t+1,len(Y)),Y,'g')
+    plt.plot(np.linspace(0,t,len(Y)),Y,'g')
     plt.title('y-t graf')
-    plt.xlabel('t')
-    plt.ylabel('y')   
+    plt.xlabel('t[s]')
+    plt.ylabel('y[m]')   
     
+    plt.tight_layout()
     plt.show()
 
 
@@ -149,9 +162,9 @@ def hitac_numericki(v0, kut, t, dt=0.01, x0=0, y0=0):
 
 
 
-jednoliko_gibanje()
-jednoliko_gibanje_numericki(50,5)
-hitac()
-hitac_numericki(50,45,10)
+#jednoliko_gibanje()
+#jednoliko_gibanje_numericki(50,5)
+#hitac()
+#hitac_numericki(50,45,10)
 
 

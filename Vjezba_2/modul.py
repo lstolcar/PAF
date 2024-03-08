@@ -1,3 +1,6 @@
-import kinematika
+import kinematika as kin
 
-kinematika.jednoliko_gibanje().jednoliko_gibanje_numericki(50,5).hitac().hitac_numericki(50,45,10)
+kin.jednoliko_gibanje(50,5)
+kin.jednoliko_gibanje_numericki(50,5)
+kin.hitac(50,45)
+kin.hitac_numericki(50,45,10)
