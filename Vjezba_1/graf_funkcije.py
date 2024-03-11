@@ -26,8 +26,8 @@ def fun_koor():
         print('y=x{}'.format(u))
     else:
         print('y={}x{}'.format(k,u))
-    pdf=input('Želite li graf spremiti kao PDF? ')
-    if pdf.lower()=='da' or pdf.lower()=='želim':
+    pdf=input('Zelite li graf spremiti kao PDF? ')
+    if pdf.lower()=='da' or pdf.lower()=='zelim':
         ime=input('Nazovite svoj PDF: ')
         plt.plot(lista_x,lista_y)
         plt.savefig('{}.pdf'.format(ime))
