@@ -15,4 +15,4 @@ def jedna_trecina(N):
 jedna_trecina(200)
 jedna_trecina(2000)
 jedna_trecina(20000)
-#Rezultat se ne bi trebao podudarati s matematicki tocnim rezultatom, no nama se podudara, pretpostavka je da drukcija verzija pythona(i windowsa) odgovorna za to 
+# Rezultat nije tocno 5, zbog kolicine memorije koja se rezervira za podatak
