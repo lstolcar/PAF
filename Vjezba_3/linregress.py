@@ -23,7 +23,7 @@ def regresija(M,phi):
     plt.subplot(2,1,1)
     plt.plot(phi,M,'bo')
     plt.title('Graf linearne regresije')
-    plt.xlabel('$ \phi $ [rad]')
+    plt.xlabel('$ \\varphi $ [rad]')
     #nisam siguran zasto mi ne prihvaca \varphi
     plt.ylabel('M [Nm]')
     plt.tight_layout()
