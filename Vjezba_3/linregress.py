@@ -9,13 +9,13 @@ def regresija(M,phi):
     print(D)
     X=[]
     Y=[]
-    for x in np.linspace(0,1.2,1000):
+    for x in np.linspace(0,1.1,1000):
         y=D*x
         Y.append(y)
         X.append(x)
 
     p = np.poly1d( np.polyfit(X, Y, 1) )
-    t=np.linspace(0,1.2,1000)
+    t=np.linspace(0,1.1,1000)
 
 
 
@@ -24,14 +24,16 @@ def regresija(M,phi):
     plt.plot(phi,M,'bo')
     plt.title('Graf linearne regresije')
     plt.xlabel('$ \\varphi $ [rad]')
-    #nisam siguran zasto mi ne prihvaca \varphi
+    plt.xticks(np.arange(0,1.2,step=0.2))
+    plt.yticks(np.arange(0,0.36,step=0.05))
     plt.ylabel('M [Nm]')
     plt.tight_layout()
     plt.plot(X,Y,'r')
-    
     plt.subplot(2,1,2)
     plt.title('Graf linearne regresije koristeci polyfit')
-    plt.xlabel('$ \phi $ [rad]')
+    plt.xlabel('$ \\varphi $ [rad]')
+    plt.yticks(np.arange(0,0.36,step=0.05))
+    plt.ylabel('M [Nm]')
     plt.ylabel('M [Nm]')
     plt.plot(phi,M,'bo')
     plt.plot(t,p(t),'g')
