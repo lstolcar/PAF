@@ -29,6 +29,8 @@ def regresija(M,phi):
     plt.ylabel('M [Nm]')
     plt.tight_layout()
     plt.plot(X,Y,'r')
+    plt.legend(['data','fit'])
+    plt.figtext(0.3,0.85,'y={}x'.format(round(D,2)))
     plt.subplot(2,1,2)
     plt.title('Graf linearne regresije koristeci polyfit')
     plt.xlabel('$ \\varphi $ [rad]')
@@ -37,6 +39,8 @@ def regresija(M,phi):
     plt.ylabel('M [Nm]')
     plt.plot(phi,M,'bo')
     plt.plot(t,p(t),'g')
+    plt.legend(['data','fit'])
+    plt.figtext(0.3,0.35,'y={}x'.format(round(D,2)))
     plt.tight_layout()
     plt.show()
 
