@@ -10,10 +10,11 @@ class Particle:
         self.ax=0
         self.ay=-9.81 
     def reset(self):
-         self.v_0 = 0
-         self.kut = 0
-         self.x_0 = 0
-         self.y_0 = 0
+         self.v_0 = self.v_0
+         self.kut = self.kut
+         self.x_0 = self.x_0
+         self.y_0 = self.y_0
+         print(self.v_0,self.kut,self.x_0,self.y_0)
 
     def __move(self,dt):
             self.dt = dt
@@ -73,6 +74,7 @@ class Particle:
 
 #p1=Particle(10,45,0,0)
 #p1.range(0.01)
+#p1.reset()
 #p1.plot_trajectory()
 #p1.domet()  
 #p1.razlika()     
