@@ -22,6 +22,6 @@ for t in np.linspace(0.00001,0.1,300):
 plt.plot(lista_dt,lista_err)
 plt.ylabel('Absolute relative error [%]')
 plt.xlabel('dt [s]')
-eq=('$ (Err)= \\frac{|D_{analitical}-D_{numerical}|}{D_{analitical}}\cdot 100% $')
-plt.text(0.015,9, eq,{'fontsize': 15})
+eq=('$ (Err)= \\frac{|D_{analitical}-D_{numerical}|}{D_{analitical}}\cdot (100\\%) $')
+plt.text(0.012,9, eq,{'fontsize': 15})
 plt.show()
