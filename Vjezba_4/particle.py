@@ -14,7 +14,7 @@ class Particle:
          self.kut = self.kut
          self.x_0 = self.x_0
          self.y_0 = self.y_0
-         print(self.v_0,self.kut,self.x_0,self.y_0)
+         #print(self.v_0,self.kut,self.x_0,self.y_0)
 
     def __move(self,dt):
             self.dt = dt

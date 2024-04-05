@@ -16,10 +16,10 @@ for t in np.linspace(0.00001,0.1,300):
     Err =( (abs(D_a - p1.D_n))/D_a)*100
     lista_err.append(Err)
     lista_dt.append(t) 
-    p1.reset()
+    #p1.reset()
 
 plt.plot(lista_dt,lista_err)
 plt.ylabel('Absolute relative error [%]')
 plt.xlabel('dt [s]')
-#plt.figtext(0.3,0.5,'{}'.format('$ (Err)= \frac{|D_{analitical}-D_{numerical}}{D_{analitical}}\cdot 100% $'))
+#plt.figtext(0.3,0.5,'$ (Err)= \frac{|D_{analitical}-D_{numerical}}{D_{analitical}}\cdot 100% $')
 plt.show()
