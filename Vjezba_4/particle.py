@@ -8,22 +8,29 @@ class Particle:
         self.x_0 = x_0
         self.y_0 = y_0
         self.ax=0
-        self.ay=-9.81 
+        self.ay=-9.81
+        self.vx0=self.v_0*np.cos(self.kut)
+        self.vy0=self.v_0*np.sin(self.kut)
+        
     def reset(self):
          self.v_0 = self.v_0
          self.kut = self.kut
          self.x_0 = self.x_0
          self.y_0 = self.y_0
+
          #print(self.v_0,self.kut,self.x_0,self.y_0)
 
     def __move(self,dt):
             self.dt = dt
-            self.vx0=self.v_0*np.cos(self.kut)
-            self.vy0=self.v_0*np.sin(self.kut)
+            self.x=self.x_0+self.vx0*self.dt
+            self.y=self.y_0+self.vy0*self.dt
+            #self.vx0=self.v_0*np.cos(self.kut)
+            #self.vy0=self.v_0*np.sin(self.kut)
             self.vx=self.vx0+self.ax*self.dt
             self.vy=self.vy0+self.ay*self.dt
-            self.x=self.x_0+self.vx*self.dt
-            self.y=self.y_0+self.vy*self.dt
+            #self.x=self.x_0+self.vx*self.dt
+            #self.y=self.y_0+self.vy*self.dt
+            
             
 
     def range(self,dt=0.01):
@@ -40,10 +47,12 @@ class Particle:
          self.lista_vy.append(self.vy0)
          #print(self.lista_x,self.lista_y,self.lista_vx,self.lista_vy)
          while self.lista_y[-1] >= 0:
-              self.lista_vx.append(self.lista_vx[-1])
               self.lista_x.append(self.lista_x[-1]+self.lista_vx[-1]*self.dt)
-              self.lista_vy.append(self.lista_vy[-1]+self.ay*self.dt)
               self.lista_y.append(self.lista_y[-1]+self.lista_vy[-1]*self.dt)
+              self.lista_vx.append(self.lista_vx[-1])
+              #self.lista_x.append(self.lista_x[-1]+self.lista_vx[-1]*self.dt)
+              self.lista_vy.append(self.lista_vy[-1]+self.ay*self.dt)
+              #self.lista_y.append(self.lista_y[-1]+self.lista_vy[-1]*self.dt)
               #print(self.lista_x,self.lista_y,self.lista_vx,self.lista_vy)
          self.D_n = self.lista_x[-1]-self.x_0
          #print(self.D_n)
