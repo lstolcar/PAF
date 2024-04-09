@@ -23,11 +23,17 @@ def metoda_druga(func,analiticko,x_i,x_f,eps,N,metoda='three-step'):
             d=(func(a+eps)-func(a))/(eps)
             lista_tocaka.append(a)
             lista_derivacija.append(d)
+        else:
+            d=(func(a+eps)-func(a-eps))/(2*eps)
+            lista_tocaka.append(a)
+            lista_derivacija.append(d)
+
+            
     print(lista_derivacija_a)
     #print(lista_tocaka)
 
-    plt.plot(lista_tocaka,lista_derivacija,'o')
-    plt.plot(lista_tocaka,lista_derivacija_a,'r')
+    plt.plot(lista_tocaka,lista_derivacija,'o',markersize=3)
+    plt.plot(lista_tocaka,lista_derivacija_a,'r',markersize=2)
     plt.show()
 
         
@@ -36,7 +42,8 @@ def metoda_druga(func,analiticko,x_i,x_f,eps,N,metoda='three-step'):
 
 
 def analiticko(x):
-    d=3*x**2
+    d=(3*x**2)+4*x
+    return d
     #print(round(d,4))
 
 
@@ -45,7 +52,7 @@ def analiticko(x):
     
 
 def func(x):
-    return x**3
+    return (x**3)+2*x**2
  
 
 
@@ -65,4 +72,4 @@ def func(x):
 
 metoda_prva(func,1,0.01)#'two-step')
 analiticko(x=0.01)
-metoda_druga(func,analiticko,-10,10,0.01,50,'two-step')
+metoda_druga(func,analiticko,-10,10,0.01,150)
