@@ -54,6 +54,21 @@ def analiticko(x):
 def func(x):
     return (x**3)+2*x**2
  
+def metoda_prva_integriranje(funkcija,gornja,donja,N):
+    dx=abs(gornja-donja)/N
+    sumaG=0
+    sumaD=0
+    for i in range(0,N):
+        sumaG += funkcija((i+1)*dx)*dx
+        sumaD += funkcija(i*dx)*dx
+    print(sumaG,sumaD)
+
+def metoda_druga_integriranje(funkcija,gornja,donja,N):
+    dx=abs(gornja-donja)/N
+    integral=0
+    for i in range(0,N):
+        integral+=(dx/2)*(funkcija(i*dx)+funkcija((i+1)*dx))
+    print(integral)  
 
 
 
@@ -63,13 +78,17 @@ def func(x):
 
 
 
+def funkcija(x):
+    return x**2
+def int_analiticki():
+    print(125/3)
 
 
 
 
 
-
-
-metoda_prva(func,1,0.01)#'two-step')
-analiticko(x=0.01)
-metoda_druga(func,analiticko,-10,10,0.01,150)
+#metoda_prva(func,1,0.01)#'two-step')
+#analiticko(x=0.01)
+#metoda_druga(func,analiticko,-10,10,0.01,150)
+metoda_prva_integriranje(funkcija,0,5,1000)
+metoda_druga_integriranje(funkcija,0,5,1000)
