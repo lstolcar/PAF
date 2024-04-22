@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from decimal import Decimal
 
 
+
 class HarmonicOscillator:
     def __init__(self,k,m,x0=0,v0=0):
         self.k=k
@@ -88,20 +89,49 @@ class HarmonicOscillator:
         self.lista_a=[]
         for self.time in np.arange(0,self.t_,self.d_t):
             if self.time==0:
+                self.lista_t.append(self.time)
                 self.lista_x.append(self.x0)
                 self.lista_v.append(self.v0)
                 self.lista_t.append(self.time)
             else:
                 self.lista_t.append(self.time)
                 self.lista_a.append(-(self.k/self.m)*self.lista_x[-1])
-                self.lista_v.append(self.lista_v[-1]+self.lista_a[-1]*self.dt)
-                self.lista_x.append(self.lista_x[-1]+self.lista_v[-1]*self.dt)
+                self.lista_v.append(self.lista_v[-1]+self.lista_a[-1]*self.d_t)
+                self.lista_x.append(self.lista_x[-1]+self.lista_v[-1]*self.d_t)
         self.lista_a.append(-(self.k/self.m)*self.lista_x[-1])
         self.lista_perioda=[]
         for self.ele in self.lista_x:
-            if self.ele - self.lista_x[-1]=0:
+            if 0.00001< abs(self.ele-min(self.lista_x)) <0.01:
+                self.index=self.lista_x.index(self.ele)
+                self.index_min=self.lista_x.index(min(self.lista_x))
+                if abs(self.lista_t[self.index]-self.lista_t[self.index_min]) > 0.1:
+                    self.lista_perioda.append(abs(self.lista_t[self.index]-self.lista_t[self.index_min]))
+                    #print(self.lista_perioda)
+                #print((sum(self.lista_perioda))/len(self.lista_perioda))
+                #print(min(self.lista_x))
+                #print(self.lista_t[self.index])
+                #print(self.lista_t[self.index_min])
+                #print(self.ele)
+                #print(min(self.lista_x))
+                #print(self.index)
+        #print(self.lista_x)
+        #print((sum(self.lista_perioda))/len(self.lista_perioda))
+        #print(self.lista_perioda)
+        #print(len(self.lista_perioda))
+        self.lista_perioda_avr=[]
+        if len(self.lista_perioda) <=2:
+            self.lista_perioda_avr=self.lista_perioda
+        elif len(self.lista_perioda)%2==0:
+            for self.i in range(len(self.lista_perioda)/2):
+                self.lista_perioda_avr.append(min(self.lista_perioda))
+                self.lista_perioda.remove(min(self.lista_perioda))
+        elif len(self.lista_perioda)%2 != 0:
+            for self.i in range((len(self.lista_perioda)/2)-1):
+                self.lista_perioda_avr.append(min(self.lista_perioda))
+                self.lista_perioda.remove(min(self.lista_perioda))
 
-
+        print(np.average(self.lista_perioda_avr))
+        print(self.lista_perioda_avr)
 
 
 
@@ -121,4 +151,5 @@ h1.motion(0.05,2)
 h1.motion(0.001,2)
 h1.motion(0.01,2)
 h1.show()
+h1.period(0.05,2)
 
