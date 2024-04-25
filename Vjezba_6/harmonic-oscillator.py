@@ -132,6 +132,31 @@ class HarmonicOscillator:
 
         print(np.average(self.lista_perioda_avr))
         print(self.lista_perioda_avr)
+    def period_1(self,d_t,t_):
+        self.t_=t_
+        self.d_t=d_t
+        self.lista_t=[]
+        self.lista_x=[]
+        self.lista_v=[]
+        self.lista_a=[]
+        for self.time in np.arange(0,self.t_,self.d_t):
+            if self.time==0:
+                self.lista_t.append(self.time)
+                self.lista_x.append(self.x0)
+                self.lista_v.append(self.v0)
+                self.lista_t.append(self.time)
+            else:
+                self.lista_t.append(self.time)
+                self.lista_a.append(-(self.k/self.m)*self.lista_x[-1])
+                self.lista_v.append(self.lista_v[-1]+self.lista_a[-1]*self.d_t)
+                self.lista_x.append(self.lista_x[-1]+self.lista_v[-1]*self.d_t)
+        self.lista_a.append(-(self.k/self.m)*self.lista_x[-1])
+        self.lista_tmax=[]
+        if self.lista_x[1]-self.lista_x[0]>0:
+            for self.i in range(1,len(self.lista_x)):
+                if self.lista_x[self.i-1]>self.lista_x[self.i]:
+                    self.lista_tmax.append(self.i-1)
+
 
 
 
