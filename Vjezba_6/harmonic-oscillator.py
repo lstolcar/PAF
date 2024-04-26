@@ -132,7 +132,7 @@ class HarmonicOscillator:
 
         print(np.average(self.lista_perioda_avr))
         print(np.average(self.lista_perioda_avr)-(2*np.pi*np.sqrt(self.m/self.k)))
-        #kod je prilicno tocan za sve dt-ove
+        #kod je prilicno tocan za sve dt-ove, no pri smanjenju je manje tocan
     def period_1(self,d_t,t_):
         self.t_=t_
         self.d_t=d_t
