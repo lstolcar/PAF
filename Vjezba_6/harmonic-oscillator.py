@@ -131,7 +131,8 @@ class HarmonicOscillator:
                 self.lista_perioda.remove(min(self.lista_perioda))
 
         print(np.average(self.lista_perioda_avr))
-        print(self.lista_perioda_avr)
+        print(np.average(self.lista_perioda_avr)-(2*np.pi*np.sqrt(self.m/self.k)))
+        #kod je prilicno tocan za sve dt-ove
     def period_1(self,d_t,t_):
         self.t_=t_
         self.d_t=d_t
@@ -152,10 +153,33 @@ class HarmonicOscillator:
                 self.lista_x.append(self.lista_x[-1]+self.lista_v[-1]*self.d_t)
         self.lista_a.append(-(self.k/self.m)*self.lista_x[-1])
         self.lista_tmax=[]
+        self.lista_tmin=[]
+        #kada prvo raste
         if self.lista_x[1]-self.lista_x[0]>0:
             for self.i in range(1,len(self.lista_x)):
                 if self.lista_x[self.i-1]>self.lista_x[self.i]:
                     self.lista_tmax.append(self.i-1)
+            for self.y in range(self.lista_tmax[0],len(self.lista_x)):
+                if self.lista_x[self.y-1]<self.lista_x[self.y]:
+                    self.lista_tmin.append(self.y-1)
+        #kada prvo pada
+        if self.lista_x[1]-self.lista_x[0]<0:
+            for self.i in range(1,len(self.lista_x)):
+                if self.lista_x[self.i-1]<self.lista_x[self.i]:
+                    self.lista_tmin.append(self.i-1)
+                    #print(self.i-1)
+            for self.y in range(self.lista_tmin[0],len(self.lista_x)):
+                if self.lista_x[self.y-1]>self.lista_x[self.y]:
+                    self.lista_tmax.append(self.y-1)
+                    #print(self.y-1)
+        #print(self.lista_tmax)
+        #print(self.lista_tmin)
+        print(abs(self.lista_t[self.lista_tmax[1]]-self.lista_t[self.lista_tmin[1]])*2)
+        #print(self.lista_t)
+        print(abs(self.lista_t[self.lista_tmax[1]]-self.lista_t[self.lista_tmin[1]])*2-(2*np.pi*np.sqrt(self.m/self.k)))
+        #ovaj kod je prilicno tocan za male razlike u dt-u
+
+
 
 
 
@@ -176,5 +200,6 @@ h1.motion(0.05,2)
 h1.motion(0.001,2)
 h1.motion(0.01,2)
 h1.show()
-h1.period(0.05,2)
+h1.period(0.001,2)
+h1.period_1(0.001,2)
 
