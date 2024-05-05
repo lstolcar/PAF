@@ -69,17 +69,74 @@ class Cestica:
         #print(self.lista_pz)
             
     def plot(self):
+        
         self.fig=plt.figure()
         self.ax=plt.axes(projection='3d')
-        self.xlinep=self.lista_px
-        self.ylinep=self.lista_py
-        self.zlinep=self.lista_pz
-        self.ax.plot3D(self.xlinep,self.ylinep,self.zlinep,'b')
 
         self.xlinen=self.lista_nx
         self.ylinen=self.lista_ny
         self.zlinen=self.lista_nz
-        self.ax.plot3D(self.xlinen,self.ylinen,self.zlinen,'r')
+        self.ax.plot3D(self.xlinen,self.ylinen,self.zlinen,'b')
+
+        self.xlinep=self.lista_px
+        self.ylinep=self.lista_py
+        self.zlinep=self.lista_pz
+        self.ax.plot3D(self.xlinep,self.ylinep,self.zlinep,'r')
+
+
+        self.ax.set_xlabel('X')
+        self.ax.set_ylabel('Y')
+        self.ax.set_zlabel('Z')
+
+        plt.show()
+
+
+
+    def Runge_Kutta(self):
+        self.Tr=0
+        self.lista_vn_kutta=[]
+        self.lista_xn_kutta=[(0,0,0)]
+        self.lista_vn_kutta.append(self.vi)
+        self.lista_nx_kutta=[0]
+        self.lista_ny_kutta=[0]
+        self.lista_nz_kutta=[0]
+
+
+        while self.Tr<self.t:
+            self.a_kutta=(self.qn*(self.E+np.cross(self.lista_vn_kutta[-1],self.B)))/self.m
+            self.k1vx=((self.qn*(self.E+np.cross(self.lista_vn_kutta[-1],self.B)))/self.m)*self.dt
+            self.k1x=self.lista_vn_kutta[-1]*self.dt
+            self.k2vx=((self.qn*(self.E+np.cross(self.lista_vn_kutta[-1],self.B))/self.m)+self.k1vx*0.5)*self.dt
+            self.k2x=(self.lista_vn_kutta[-1]+((self.k1vx)/2))*self.dt
+            self.k3vx=((self.qn*(self.E+np.cross(self.lista_vn_kutta[-1],self.B))/self.m)+self.k2vx*0.5)*self.dt
+            self.k3x=(self.lista_vn_kutta[-1]+((self.k2vx)/2))*self.dt
+            self.k4vx=(self.qn*((self.E+np.cross(self.lista_vp[-1],self.B))/self.m)+self.k3vx)*self.dt
+            self.k4x=(self.lista_vn_kutta[-1]+self.k3vx)*self.dt
+            self.vn_kutta=self.lista_vn_kutta[-1]+(1./6.)*(self.k1vx+2*self.k2vx+2*self.k3vx+self.k4vx)
+            self.xn_kutta=self.lista_xn_kutta[-1]+(1./6.)*(self.k1x+2*self.k2x+2*self.k3x+self.k4x)
+            self.lista_vn_kutta.append(self.vn_kutta)
+            self.lista_xn_kutta.append(self.xn_kutta)
+            self.lista_nx_kutta.append(self.xn_kutta[0])
+            self.lista_ny_kutta.append(self.xn_kutta[1])
+            self.lista_nz_kutta.append(self.xn_kutta[2])
+            self.Tr=self.Tr+self.dt
+        
+
+
+    def plot_kutta(self):
+        self.fig=plt.figure()
+        self.ax=plt.axes(projection='3d')
+
+        self.xline_kutta=self.lista_nx_kutta
+        self.yline_kutta=self.lista_ny_kutta
+        self.zline_kutta=self.lista_nz_kutta
+        self.ax.plot3D(self.xline_kutta,self.yline_kutta,self.zline_kutta,'r')
+
+        self.xlinen=self.lista_nx
+        self.ylinen=self.lista_ny
+        self.zlinen=self.lista_nz
+        self.ax.plot3D(self.xlinen,self.ylinen,self.zlinen,'b')
+
 
         self.ax.set_xlabel('X')
         self.ax.set_ylabel('Y')
@@ -92,7 +149,12 @@ class Cestica:
 
 
 
+
+
+
 c1=Cestica(1,1,0.1,0.1,0.1,0,0,1,0,0,0,0,0,0,0.01,0,20)
 #pdb.set_trace()
 c1.putanja()
-c1.plot()
+#c1.plot()
+c1.Runge_Kutta()
+c1.plot_kutta()
