@@ -2,13 +2,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 class tijela:
     def __init__(self,xZ=1.486*(10**11),yZ=0,xS=0,yS=0,mZ=5.9742*(10**24),mS=1989*(10**30),vxi=0,vyi=29783,vSunca=0,godina=365.242,G=6.67408*(10**(-11))):
-        self.xZi=xZ
-        self.yZi=yZ
-        self.xSi=xS
-        self.ySi=yS
-        self.vxi=vxi
-        self.vyi=vyi
-        self.vSunca=vSunca
+        self.pozicija_iZ=np.array((xZ,yZ))
+        self.pozicija_iS=np.array((xS,yS))
+        self.vi_Z=np.array((vxi,vyi))
+        self.vi_S=np.array((0,vSunca))
         self.godina=godina*86400
         self.G=G
         self.mZ=mZ
@@ -16,61 +13,48 @@ class tijela:
 
     def pomicaj(self,dt=0.05):
         self.dt=dt*86400
-        self.lista_xZ=[self.xZi]
-        self.lista_yZ=[self.yZi]
-        self.lista_xS=[self.xSi]
-        self.lista_yS=[self.ySi]
-        self.lista_vxZ=[self.vxi]
-        self.lista_vyZ=[self.vyi]
-        self.lista_vxS=[0]
-        self.lista_vyS=[0]
-        self.lista_axZ=[]
-        self.lista_ayZ=[]
-        self.lista_axS=[]
-        self.lista_ayS=[]
-        self.axZi=-self.G*((self.mS)/((abs(np.sqrt(((self.xZi-self.xSi)**2)+(self.yZi-self.ySi)**2))))**3)*(np.sqrt(((self.xZi-self.xSi)**2)+(self.yZi-self.ySi)**2))
-        self.ayZi=-self.G*((self.mS)/((abs(np.sqrt(((self.xZi-self.xSi)**2)+(self.yZi-self.ySi)**2))))**3)*(np.sqrt(((self.xZi-self.xSi)**2)+(self.yZi-self.ySi)**2))
-        self.axSi=-self.G*((self.mZ)/((abs(np.sqrt(((self.xZi-self.xSi)**2)+(self.yZi-self.ySi)**2))))**3)*self.xSi
-        self.aySi=-self.G*((self.mZ)/((abs(np.sqrt(((self.xZi-self.xSi)**2)+(self.yZi-self.ySi)**2))))**3)*self.ySi
-        self.lista_axZ.append(self.axZi)
-        self.lista_ayZ.append(self.ayZi)
-        self.lista_axS.append(self.axSi)
-        self.lista_ayS.append(self.aySi)
+        self.lista_pozicija_Z=[self.pozicija_iZ]
+        self.lista_pozicija_S=[self.pozicija_iS]
+        self.lista_vZ=[self.vi_Z]
+        self.lista_vS=[self.vi_S]
+        self.lista_aZ=[]
+        self.lista_aS=[]
+        print(self.pozicija_iZ)
+        print(self.pozicija_iS)
+        self.aZi=-self.G*np.dot((self.mS)/((abs(np.subtract(self.pozicija_iZ,self.pozicija_iS)))**3),(np.subtract(self.pozicija_iZ,self.pozicija_iS)))
+        self.aSi=-self.G*np.dot(((self.mZ)/((abs(np.subtract(self.pozicija_iS,self.pozicija_iZ))))**3),(np.subtract(self.pozicija_iS,self.pozicija_iZ)))
+        self.lista_aZ.append(self.aZi)
+        self.lista_aS.append(self.aSi)
         self.T=0
+        self.lista_xZ=[self.pozicija_iZ[0]]
+        self.lista_yZ=[self.pozicija_iZ[1]]
+        self.lista_xS=[self.pozicija_iS[0]]
+        self.lista_yS=[self.pozicija_iS[1]]
+        
         
         
 
     
         while self.T<self.godina:
-            self.vxZ=self.lista_vxZ[-1]+self.lista_axZ[-1]*self.dt
-            self.vyZ=self.lista_vyZ[-1]+self.lista_ayZ[-1]*self.dt
+            self.vZ=self.lista_vZ[-1]+self.lista_aZ[-1]*self.dt
             #print(self.vxZ)
             #print(self.vyZ)
-            self.xZ=self.lista_xZ[-1]+self.vxZ*self.dt
-            self.yZ=self.lista_yZ[-1]+self.vyZ*self.dt
+            self.pozicija_Z=self.lista_pozicija_Z[-1]+self.vZ*self.dt
             #print(self.xZ)
             #print(self.yZ)
-            self.vxS=self.lista_vxS[-1]+self.lista_axS[-1]*self.dt
-            self.vyS=self.lista_vyS[-1]+self.lista_ayS[-1]*self.dt
-            self.xS=self.lista_xS[-1]+self.vxS*self.dt
-            self.yS=self.lista_yS[-1]+self.vyS*self.dt
-            self.axZ=-self.G*((self.mS)/((abs(np.sqrt(((self.xZ-self.xS)**2)+(self.yZ-self.yS)**2))))**3)*(self.xZ-self.xS)
-            self.ayZ=-self.G*((self.mS)/((abs(np.sqrt(((self.xZ-self.xS)**2)+(self.yZ-self.yS)**2))))**3)*(self.yZ-self.yS)
+            self.vS=self.lista_vS[-1]+self.lista_aS[-1]*self.dt
+            self.pozicija_S=self.lista_pozicija_S[-1]+self.vS*self.dt
+            self.aZ=-self.G*(self.mS)/((abs(np.subtract(self.pozicija_Z,self.pozicija_S)))**3)*(np.subtract(self.pozicija_Z,self.pozicija_S))
             #print(self.ayZ)
-            self.axS=-self.G*((self.mZ)/((abs(np.sqrt(((self.xZ-self.xS)**2)+(self.yZ-self.yS)**2))))**3)*(self.xS-self.xZ)
-            self.ayS=-self.G*((self.mZ)/((abs(np.sqrt(((self.xZ-self.xS)**2)+(self.yZ-self.yS)**2))))**3)*(self.yS-self.yZ)
-            self.lista_axZ.append(self.axZ)
-            self.lista_ayZ.append(self.ayZ)
-            self.lista_axS.append(self.axS)
-            self.lista_ayS.append(self.ayS)
-            self.lista_vxZ.append(self.vxZ)
-            self.lista_vyZ.append(self.vyZ)
-            self.lista_vxS.append(self.vxS)
-            self.lista_vyS.append(self.vyS)
-            self.lista_xZ.append(self.xZ)
-            self.lista_yZ.append(self.yZ)
-            self.lista_xS.append(self.xS)
-            self.lista_yS.append(self.yS)
+            self.aS=-self.G*((self.mZ)/((abs(np.subtract(self.pozicija_S,self.pozicija_Z))))**3)*(np.subtract(self.pozicija_S,self.pozicija_Z))
+            self.lista_aZ.append(self.aZ)
+            self.lista_aS.append(self.aS)
+            self.lista_vZ.append(self.vZ)
+            self.lista_vS.append(self.vS)
+            self.lista_xZ.append(self.pozicija_Z[0])
+            self.lista_yZ.append(self.pozicija_Z[1])
+            self.lista_xS.append(self.pozicija_S[0])
+            self.lista_yS.append(self.pozicija_S[1])
             self.T=self.T+self.dt
 
         #print(self.lista_vZ)
