@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.animation as ani
 
 class Bungee:
     def __init__(self,k,l,m,h,e=0,g=9.81):
@@ -56,7 +57,7 @@ class Bungee:
                 #print((self.Ep+self.Ek+self.Eel))
                 self.lista_ZOE.append(self.Zoe)
         #print(self.lista_ZOE)        
-        print(self.lista_x)
+        #print(self.lista_x)
         #print(self.lista_Ep[0],self.lista_Ep[1])
         plt.plot(self.lista_t,self.lista_h)
         plt.show()
@@ -67,7 +68,34 @@ class Bungee:
         plt.show()
 
 
+    def animacija(self):
+        plt.rcParams['figure.figsize']=[5,5]
+        plt.rcParams['figure.autolayout']=True
+        fig=plt.figure()
+        ax=plt.axes(xlim=(-1,1),ylim=(0,80))
+
+        line,=ax.plot([],[],'o',color='orange')
+        line2,=ax.plot([],[],color='black')
+
+        def init():
+            line.set_data([],[])
+            line2.set_data([],[])
+
+            return line, line2
+        def animate(i):
+            y=self.lista_h[i]
+            line.set_data(0,y)
+            line2.set_data(0,[self.lista_h[0],y])
+
+            return line2, line
+        
+        anim=ani.FuncAnimation(fig,animate,init_func=init,frames=2000,interval=60,blit=True)
+        plt.show()
+
+
+
 b1=Bungee(100,20,70,80)
 b1.motion(0.05,60)
+b1.animacija()
 
         
