@@ -41,7 +41,7 @@ class Bungee:
                 self.e=abs(self.x)-self.l
                 self.Ep=self.m*self.g*self.h
                 self.Ek=0.5*self.m*(self.v**2)
-                self.Eel=0.5*self.k*(self.e**2)
+                self.Eel=0.5*self.k*(self.lista_ekstenzija[-1]**2)
                 if self.e > 0:
                     self.lista_ekstenzija.append(self.e)
                 else:
@@ -56,7 +56,7 @@ class Bungee:
                 #print((self.Ep+self.Ek+self.Eel))
                 self.lista_ZOE.append(self.Zoe)
         #print(self.lista_ZOE)        
-        print(self.lista_h)
+        print(self.lista_x)
         #print(self.lista_Ep[0],self.lista_Ep[1])
         plt.plot(self.lista_t,self.lista_h)
         plt.show()
@@ -67,7 +67,7 @@ class Bungee:
         plt.show()
 
 
-b1=Bungee(6,50,15,80)
-b1.motion(0.5,60)
+b1=Bungee(100,20,70,80)
+b1.motion(0.05,60)
 
         
