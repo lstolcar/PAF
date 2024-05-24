@@ -3,10 +3,10 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as ani
 
 class Bungee:
-    def __init__(self,k,l,m,h,e=0,g=9.81,rho=0.6,C=0.1,A=0.5):
-        self.A=A #površina okomita na smjer gibanja
+    def __init__(self,k,l,m,h,e=0,g=9.81,rho=0.6,C=0.7,A=0.5):
+        self.A=A #povrsina okomita na smjer gibanja
         self.C=C #koeficijent trenja
-        self.rho=rho #gustoća zraka
+        self.rho=rho #gustoca zraka
         self.k=k  #konstanta rastezljivosti
         self.m=m  #masa osobe
         self.ei=e  #ekstenzija uzeta
@@ -59,7 +59,6 @@ class Bungee:
                     self.lista_Ek.append(self.Ek)
                     self.lista_Eel.append(self.Eel)
                     self.Zoe=self.lista_Ep[0]-(self.Ep+self.Ek+self.Eel)
-                    #print((self.Ep+self.Ek+self.Eel))
                     self.lista_ZOE.append(self.Zoe)
         else:
              for self.t in np.arange(0,self.vrijeme,self.dt):
@@ -99,12 +98,14 @@ class Bungee:
         #print(self.lista_x)
         #print(self.lista_Ep[0],self.lista_Ep[1])
         plt.plot(self.lista_t,self.lista_h)
+        print(min(self.lista_h))
         plt.xlabel('t [s]')
         plt.ylabel('visina na kojoj se osoba nalazi [m]')
         plt.show()
         plt.plot(self.lista_t,self.lista_Ep,label='Ep graf')
         plt.plot(self.lista_t,self.lista_Ek,label='Ek graf')
         plt.plot(self.lista_t,self.lista_Eel,label='Eel graf')
+        plt.plot(self.lista_t,self.lista_ZOE,label='Ukupni gubitak energije')
         plt.xlabel('t [s]')
         plt.ylabel('Iznos energije [J]')
         plt.legend()
@@ -132,7 +133,7 @@ class Bungee:
 
             return line2, line
         
-        anim=ani.FuncAnimation(fig,animate,init_func=init,frames=2000,interval=60,blit=True)
+        anim=ani.FuncAnimation(fig,animate,init_func=init,frames=len(self.lista_t),interval=0.000001,blit=True)
         plt.show()
 
         plt.rcParams['figure.figsize']=[5,5]
@@ -140,25 +141,25 @@ class Bungee:
         fig=plt.figure()
         ax=plt.axes(xlim=(0,60),ylim=(-2000,5000))
 
-        line,=ax.plot([],[],color='blue')
+        linija,=ax.plot([],[],color='blue')
 
         def init():
-            line.set_data([],[])
+            linija.set_data([],[])
             
 
-            return line
+            return linija
         def animate(j):
-            line.set_data(self.lista_t[:j],self.lista_Ep[:j])
+            linija.set_data(self.lista_t[:j],self.lista_Ep[:j])
 
-            return line
+            return linija
         
         anim=ani.FuncAnimation(fig,animate,init_func=init,frames=len(self.lista_t),interval=60,blit=True)
         plt.show()
 
 
 
-b1=Bungee(100,15,70,80)
-b1.motion(0.05,60,'Da')
+b1=Bungee(40,11,70,80)
+b1.motion(0.001,60,'Da')
 b1.animacija()
 
         
