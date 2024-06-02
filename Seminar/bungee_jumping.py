@@ -1,13 +1,14 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as ani
+from IPython import display
 
 class Bungee:
     def __init__(self,k,l,m,h,e=0,g=9.81,rho=0.6,C=0.7,A=0.5):
         self.A=A #povrsina okomita na smjer gibanja
         self.C=C #koeficijent trenja
         self.rho=rho #gustoca zraka
-        self.k=k  #konstanta rastezljivosti
+        self.k=k  #konstanta opruge
         self.m=m  #masa osobe
         self.ei=e  #ekstenzija uzeta
         self.l=l  #duljina uzeta
@@ -94,9 +95,7 @@ class Bungee:
                     self.Zoe=self.lista_Ep[0]-(self.Ep+self.Ek+self.Eel)
                     self.a=self.lista_Ep[0]-(self.Ep+self.Ek+self.Eel)
                     self.lista_ZOE.append(self.a)
-        #print(np.average(self.lista_ZOE))        
-        #print(self.lista_x)
-        #print(self.lista_Ep[0],self.lista_Ep[1])
+        print(np.average(self.lista_ZOE))        
         plt.plot(self.lista_t,self.lista_h)
         print(min(self.lista_h))
         plt.xlabel('t [s]')
@@ -135,27 +134,8 @@ class Bungee:
         
         anim=ani.FuncAnimation(fig,animate,init_func=init,frames=len(self.lista_t),interval=0.000001,blit=True)
         plt.show()
-
-        plt.rcParams['figure.figsize']=[5,5]
-        plt.rcParams['figure.autolayout']=True
-        fig=plt.figure()
-        ax=plt.axes(xlim=(0,60),ylim=(-2000,5000))
-
-        linija,=ax.plot([],[],color='blue')
-
-        def init():
-            linija.set_data([],[])
-            
-
-            return linija
-        def animate(j):
-            linija.set_data(self.lista_t[:j],self.lista_Ep[:j])
-
-            return linija
         
-        anim=ani.FuncAnimation(fig,animate,init_func=init,frames=len(self.lista_t),interval=60,blit=True)
-        plt.show()
-
+       
 
 
 b1=Bungee(40,11,70,80)
