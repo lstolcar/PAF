@@ -5,7 +5,7 @@ from decimal import Decimal
 
 
 class HarmonicOscillator:
-    def __init__(self,k,m,x0=0,v0=0,c1=0.3,c2=0.1):
+    def __init__(self,k,m,x0=0,v0=0,c1=0.1,c2=0.12):
         self.k=k
         self.m=m
         self.x0=x0
@@ -48,6 +48,7 @@ class HarmonicOscillator:
                 else:
                     self.lista_t.append(self.t)
                     self.lista_a.append((-self.c1*(self.lista_v[-1])-self.c2*(self.lista_v[-1]**2)-self.k*self.lista_x[-1])/self.m)
+                    print(self.lista_v[-1])
                     self.lista_v.append(self.lista_v[-1]+self.lista_a[-1]*self.dt)
                     self.lista_x.append(self.lista_x[-1]+self.lista_v[-1]*self.dt)
             self.lista_a.append((-self.c1*(self.lista_v[-1])-self.c2*(self.lista_v[-1]**2)-self.k*self.lista_x[-1])/self.m)
@@ -72,7 +73,7 @@ class HarmonicOscillator:
         plt.xlabel('t [s]')
         plt.ylabel('x [m]')
         plt.xticks(np.arange(0,self.vrijeme,step=0.25))
-        plt.yticks(np.arange(-self.x0,self.x0+0.1,step=0.1))
+        plt.yticks(np.arange(-self.x0,self.x0+0.1,step=1))
         plt.legend()
         plt.tight_layout()
         plt.subplot(3,1,2)
@@ -81,7 +82,7 @@ class HarmonicOscillator:
         plt.xlabel('t [s]')
         plt.ylabel('v [m/s]')
         plt.xticks(np.arange(0,self.vrijeme,step=0.25))
-        plt.yticks(np.arange(round(min(self.lista_v)),(-round(min(self.lista_v)))+1,step=1))
+        plt.yticks(np.arange(round(min(self.lista_v)),(-round(min(self.lista_v)))+1,step=10))
         plt.tight_layout()
         plt.legend()
         plt.subplot(3,1,3)
@@ -90,7 +91,7 @@ class HarmonicOscillator:
         plt.xlabel('t [s]')
         plt.ylabel('a [m/s^2]')
         plt.xticks(np.arange(0,self.vrijeme,step=0.25))
-        plt.yticks(np.arange(round(min(self.lista_a)),(-round(min(self.lista_a)))+10,step=10))
+        plt.yticks(np.arange(round(min(self.lista_a)),(-round(min(self.lista_a)))+10,step=100))
         plt.tight_layout()
         plt.legend()
         #print(str(self.dt))
@@ -104,9 +105,9 @@ class HarmonicOscillator:
 
 
 
-h1=HarmonicOscillator(10,0.1,0.5,0)
-h1.motion(0.05,2,'ne')
-h1.motion(0.05,2,'da')
+h1=HarmonicOscillator(5,0.1,0.5,0)
+h1.motion(0.05,10,'ne')
+h1.motion(0.05,10,'da')
 h1.show()
 
         
