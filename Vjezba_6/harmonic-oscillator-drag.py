@@ -5,7 +5,7 @@ from decimal import Decimal
 
 
 class HarmonicOscillator:
-    def __init__(self,k,m,x0=0,v0=0,c1=0.1,c2=0.12):
+    def __init__(self,k,m,x0=0,v0=0,c1=0.12,c2=0.03):
         self.k=k
         self.m=m
         self.x0=x0
@@ -27,7 +27,7 @@ class HarmonicOscillator:
         self.lista_t=[]
         self.lista_x=[]
         self.lista_v=[]
-        self.lista_a=[]
+        self.lista_a=[self.a0]
         
         if self.dt<=0.001:
             self.marker=1
@@ -47,11 +47,10 @@ class HarmonicOscillator:
                     self.lista_t.append(self.t)
                 else:
                     self.lista_t.append(self.t)
-                    self.lista_a.append((-self.c1*(self.lista_v[-1])-self.c2*(self.lista_v[-1]**2)-self.k*self.lista_x[-1])/self.m)
-                    print(self.lista_v[-1])
                     self.lista_v.append(self.lista_v[-1]+self.lista_a[-1]*self.dt)
                     self.lista_x.append(self.lista_x[-1]+self.lista_v[-1]*self.dt)
-            self.lista_a.append((-self.c1*(self.lista_v[-1])-self.c2*(self.lista_v[-1]**2)-self.k*self.lista_x[-1])/self.m)
+                    self.lista_a.append((-self.c1*(self.lista_v[-1])-np.sign(self.lista_v[-1])*self.c2*(self.lista_v[-1]**2)-self.k*self.lista_x[-1])/self.m)
+            print(self.lista_a)    
         else:
             for self.t in np.arange(0,self.vrijeme,self.dt):
             #self.lista_t.append(self.t)
@@ -61,11 +60,11 @@ class HarmonicOscillator:
                     self.lista_t.append(self.t)
                 else:
                     self.lista_t.append(self.t)
-                    self.lista_a.append((-self.c1*(self.lista_v[-1])-self.k*self.lista_x[-1])/self.m)
                     self.lista_v.append(self.lista_v[-1]+self.lista_a[-1]*self.dt)
                     self.lista_x.append(self.lista_x[-1]+self.lista_v[-1]*self.dt)
-            self.lista_a.append((-self.c1*(self.lista_v[-1])-self.k*self.lista_x[-1])/self.m)
-        #print(self.lista_t)
+                    self.lista_a.append((-self.c1*(self.lista_v[-1])-self.k*self.lista_x[-1])/self.m)
+            print(self.lista_a)
+                    
         #print(self.lista_x)
         plt.subplot(3,1,1)
         plt.plot(self.lista_t,self.lista_x,self.type,markersize=self.marker,label='dt = {}'.format(str(self.dt)))
@@ -86,7 +85,7 @@ class HarmonicOscillator:
         plt.tight_layout()
         plt.legend()
         plt.subplot(3,1,3)
-        plt.plot(self.lista_t,self.lista_a,self.type,markersize=self.marker,label='dt = {}'.format((self.c_2)))
+        plt.plot(self.lista_t,self.lista_a,self.type,markersize=self.marker,label='dt = {}'.format(str(self.dt)))
         plt.title('a-t graf')
         plt.xlabel('t [s]')
         plt.ylabel('a [m/s^2]')
@@ -105,9 +104,9 @@ class HarmonicOscillator:
 
 
 
-h1=HarmonicOscillator(5,0.1,0.5,0)
-h1.motion(0.05,10,'ne')
-h1.motion(0.05,10,'da')
+h1=HarmonicOscillator(5,0.1,1,0)
+h1.motion(0.05,5,'ne')
+h1.motion(0.05,5,'da')
 h1.show()
 
         
