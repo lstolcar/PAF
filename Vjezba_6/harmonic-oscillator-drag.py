@@ -36,11 +36,8 @@ class HarmonicOscillator:
         else:
             self.marker=3
 
-        #self.lista_x.append(self.x0)
-        #self.lista_v.append(self.v0)
         if self.c_2=='da':
             for self.t in np.arange(0,self.vrijeme,self.dt):
-            #self.lista_t.append(self.t)
                 if self.t==0:
                     self.lista_x.append(self.x0)
                     self.lista_v.append(self.v0)
@@ -53,7 +50,6 @@ class HarmonicOscillator:
             print(self.lista_a)    
         else:
             for self.t in np.arange(0,self.vrijeme,self.dt):
-            #self.lista_t.append(self.t)
                 if self.t==0:
                     self.lista_x.append(self.x0)
                     self.lista_v.append(self.v0)
@@ -65,7 +61,6 @@ class HarmonicOscillator:
                     self.lista_a.append((-self.c1*(self.lista_v[-1])-self.k*self.lista_x[-1])/self.m)
             print(self.lista_a)
                     
-        #print(self.lista_x)
         plt.subplot(3,1,1)
         plt.plot(self.lista_t,self.lista_x,self.type,markersize=self.marker,label='dt = {}'.format(str(self.dt)))
         plt.title('x-t graf')
@@ -93,8 +88,7 @@ class HarmonicOscillator:
         plt.yticks(np.arange(round(min(self.lista_a)),(-round(min(self.lista_a)))+10,step=100))
         plt.tight_layout()
         plt.legend()
-        #print(str(self.dt))
-        #print(min(self.lista_v))
+        
         
         
 
