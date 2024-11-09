@@ -47,7 +47,7 @@ class HarmonicOscillator:
                     self.lista_v.append(self.lista_v[-1]+self.lista_a[-1]*self.dt)
                     self.lista_x.append(self.lista_x[-1]+self.lista_v[-1]*self.dt)
                     self.lista_a.append((-self.c1*(self.lista_v[-1])-np.sign(self.lista_v[-1])*self.c2*(self.lista_v[-1]**2)-self.k*self.lista_x[-1])/self.m)
-            print(self.lista_a)    
+              
         else:
             for self.t in np.arange(0,self.vrijeme,self.dt):
                 if self.t==0:
@@ -59,7 +59,7 @@ class HarmonicOscillator:
                     self.lista_v.append(self.lista_v[-1]+self.lista_a[-1]*self.dt)
                     self.lista_x.append(self.lista_x[-1]+self.lista_v[-1]*self.dt)
                     self.lista_a.append((-self.c1*(self.lista_v[-1])-self.k*self.lista_x[-1])/self.m)
-            print(self.lista_a)
+            
                     
         plt.subplot(3,1,1)
         plt.plot(self.lista_t,self.lista_x,self.type,markersize=self.marker,label='dt = {}'.format(str(self.dt)))
